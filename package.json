@@ -7,11 +7,16 @@
     "engines": {
         "vscode": "^1.47.0"
     },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Akatukiaoki/aixy-idea.git"
+    },
     "activationEvents": [
         "onView:explorer"
     ],
     "main": "out/extension.js",
     "scripts": {
+        "vscode:prepublish": "webpack",
         "vite build": "vite build",
         "vite watch": "vite build --watch",
         "webpack build": "webpack",

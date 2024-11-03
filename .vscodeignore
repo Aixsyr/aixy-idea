@@ -1,0 +1,9 @@
+node_modules
+.git
+.vscode
+out/test
+src
+tsconfig.json
+webpack.config.js
+README.md
+# LICENSE.txt
