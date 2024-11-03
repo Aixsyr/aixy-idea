@@ -1,9 +1,6 @@
 // 引入 Node.js 内置模块 'path'，用于处理和转换文件路径
 const path = require('path');
 
-// 引入 'webpack-node-externals' 插件，用于排除 Node.js 模块依赖
-const nodeExternals = require('webpack-node-externals');
-
 module.exports = {
     // 设置 Webpack 的模式为 'production'，以启用优化
     mode: 'production',
@@ -49,5 +46,7 @@ module.exports = {
     },
 
     // 配置外部依赖，使用 'webpack-node-externals' 插件
-    externals: [nodeExternals()] // 排除 Node.js 模块依赖
+    externals: {
+        vscode: 'commonjs vscode' // ignored because it doesn't exist
+    }, // 排除 Node.js 模块依赖
 };

@@ -5,6 +5,7 @@ import { getConfiguration, logger, CreateCommandOptions } from '@/utils/a_VSCode
 
 // 创建命令的函数
 export async function uniapp_create_file(options: CreateCommandOptions, uri: vscode.Uri) {
+  logger('warning', `${options.command} 执行!`)
   // 根据命令名称设置输入提示文本
   const componentText = `输入${options.name}名称`
   const pageText = `${componentText}，空格分隔字段（navigationBarTitleText）`

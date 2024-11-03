@@ -1,8 +1,8 @@
 {
     "name": "aixy-idea",
-    "displayName": "Aixy 的想法",
+    "displayName": "Aixy idea",
     "description": "Aixy 的想法",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "publisher": "Aixy",
     "engines": {
         "vscode": "^1.47.0"
@@ -14,11 +14,11 @@
     "activationEvents": [
         "onView:explorer"
     ],
+    "icon": "public/icon.png",
     "main": "out/extension.js",
     "scripts": {
         "vscode:prepublish": "webpack",
         "vite build": "vite build",
-        "vite watch": "vite build --watch",
         "webpack build": "webpack",
         "compile": "tsc -p ./"
     },
@@ -164,11 +164,9 @@
         "@types/node": "^22.8.5",
         "ts-loader": "^9.5.1",
         "typescript": "^5.6.3",
-        "vite": "^5.4.10",
         "vscode": "^1.1.37",
         "webpack": "^5.96.1",
-        "webpack-cli": "^5.1.4",
-        "webpack-node-externals": "^3.0.0"
+        "webpack-cli": "^5.1.4"
     },
     "dependencies": {
         "comment-json": "^4.2.5",

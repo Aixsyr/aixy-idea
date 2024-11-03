@@ -1,10 +1,11 @@
 import type * as vscode from 'vscode'
-import { createCommand } from '@/utils/a_VSCode'
+import { createCommand, logger } from '@/utils/a_VSCode'
 
 import { uniapp_create_file } from '@/aixy_uniapp/create_file'
 import { package_run_scripts } from '@/aixy_package/add_scripts_to_menu'
 // 激活扩展程序时调用此方法
 export function activate(context: vscode.ExtensionContext) {
+  logger('warning', `拓展启动`)
   // 创建命令的订阅列表
   const aixy_uniapp = [
     // 创建一个名为 '页面' 的命令，命令标识符为 'aixy_template.createPage'

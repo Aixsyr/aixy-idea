@@ -1,9 +1,11 @@
-node_modules
 .git
-.vscode
-out/test
+.vscode/**
+.vscode-test/**
+out/**/test
 src
-tsconfig.json
-webpack.config.js
-README.md
-# LICENSE.txt
+.gitignore
+**/tsconfig.json
+**/.eslintrc.json
+**/*.map
+**/*.ts
+node_modules
