@@ -1,0 +1,173 @@
+{
+    "name": "aixy-idea",
+    "displayName": "Aixy 的想法",
+    "description": "Aixy 的想法",
+    "version": "0.0.1",
+    "publisher": "Aixy",
+    "engines": {
+        "vscode": "^1.47.0"
+    },
+    "activationEvents": [
+        "onView:explorer"
+    ],
+    "main": "out/extension.js",
+    "scripts": {
+        "vite build": "vite build",
+        "vite watch": "vite build --watch",
+        "webpack build": "webpack",
+        "compile": "tsc -p ./"
+    },
+    "contributes": {
+        "configuration": [
+            {
+                "title": "aixy_template 配置项",
+                "properties": {
+                    "aixy_template.typescript": {
+                        "type": "boolean",
+                        "default": true,
+                        "description": "创建视图时是否选择 TypeScript 为默认语言"
+                    },
+                    "aixy_template.directory": {
+                        "type": "boolean",
+                        "default": false,
+                        "description": "创建视图时是否创建同名文件夹"
+                    },
+                    "aixy_template.name": {
+                        "type": [
+                            "string"
+                        ],
+                        "default": "index",
+                        "enum": [
+                            "index",
+                            "与文件夹同名"
+                        ],
+                        "description": "创建文件夹中生成的文件名"
+                    },
+                    "aixy_template.style": {
+                        "type": [
+                            "string"
+                        ],
+                        "default": "css",
+                        "enum": [
+                            "css",
+                            "scss",
+                            "less",
+                            "stylus",
+                            "sass"
+                        ],
+                        "description": "创建视图时 CSS 预处理器的类型"
+                    },
+                    "aixy_template.scoped": {
+                        "type": "boolean",
+                        "default": true,
+                        "description": "创建模版时，是否使用 <style scoped>"
+                    },
+                    "aixy_template.setup": {
+                        "type": "boolean",
+                        "default": true,
+                        "description": "创建 vue3 模版时，是否使用 <script setup>"
+                    },
+                    "aixy_template.template": {
+                        "type": [
+                            "string"
+                        ],
+                        "default": "vue3",
+                        "enum": [
+                            "vue2",
+                            "vue3",
+                            "composition-api(vue2)"
+                        ],
+                        "description": "选择创建的模版"
+                    }
+                }
+            }
+        ],
+        "commands": [
+            {
+                "command": "aixy.package.runScript",
+                "title": "运行任务"
+            },
+            {
+                "command": "aixy_template.createPage",
+                "title": "新建uni-app页面"
+            },
+            {
+                "command": "aixy_template.createSubcontractPage",
+                "title": "新建uni-app页面(分包)"
+            },
+            {
+                "command": "aixy_template.createComponent",
+                "title": "新建uni-app组件"
+            }
+        ],
+        "submenus": [
+            {
+                "id": "aixy.submenu",
+                "label": "aixy"
+            },
+            {
+                "id": "aixy.uniapp",
+                "label": "uni-app"
+            },
+            {
+                "id": "aixy.file.create",
+                "label": "创建单文件"
+            }
+        ],
+        "menus": {
+            "explorer/context": [
+                {
+                    "group": "navigation@1",
+                    "command": "aixy.package.runScript",
+                    "when": "resourceFilename == package.json"
+                },
+                {
+                    "group": "navigation@2",
+                    "submenu": "aixy.submenu"
+                }
+            ],
+            "aixy.submenu": [
+                {
+                    "group": "navigation@1",
+                    "submenu": "aixy.uniapp"
+                },
+                {
+                    "group": "navigation@2",
+                    "submenu": "aixy.file.create"
+                }
+            ],
+            "aixy.uniapp": [
+                {
+                    "group": "navigation@2",
+                    "command": "aixy_template.createSubcontractPage"
+                },
+                {
+                    "group": "navigation@",
+                    "command": "aixy_template.createComponent"
+                },
+                {
+                    "group": "navigation@1",
+                    "command": "aixy_template.createPage"
+                }
+            ],
+            "aixy.file.create": []
+        }
+    },
+    "devDependencies": {
+        "@types/ejs": "^3.1.5",
+        "@types/fs-extra": "^11.0.4",
+        "@types/node": "^22.8.5",
+        "ts-loader": "^9.5.1",
+        "typescript": "^5.6.3",
+        "vite": "^5.4.10",
+        "vscode": "^1.1.37",
+        "webpack": "^5.96.1",
+        "webpack-cli": "^5.1.4",
+        "webpack-node-externals": "^3.0.0"
+    },
+    "dependencies": {
+        "comment-json": "^4.2.5",
+        "ejs": "^3.1.10",
+        "fs-extra": "^11.2.0"
+    }
+}
