@@ -89,8 +89,16 @@
         ],
         "commands": [
             {
+                "command": "aixy.test",
+                "title": "aixy 测试"
+            },
+            {
                 "command": "aixy.package.runScript",
                 "title": "运行任务"
+            },
+            {
+                "command": "aixy.package.runScript.firstScript",
+                "title": "运行首个任务"
             },
             {
                 "command": "aixy_template.createPage",
@@ -128,14 +136,20 @@
                 },
                 {
                     "group": "navigation@2",
+                    "command": "aixy.package.runScript.firstScript",
+                    "when": "resourceFilename == package.json"
+                },
+                {
+                    "group": "navigation@3",
+                    "submenu": "aixy.uniapp",
+                    "when": "resourceFilename == pages"
+                },
+                {
+                    "group": "navigation@4",
                     "submenu": "aixy.submenu"
                 }
             ],
             "aixy.submenu": [
-                {
-                    "group": "navigation@1",
-                    "submenu": "aixy.uniapp"
-                },
                 {
                     "group": "navigation@2",
                     "submenu": "aixy.file.create"
@@ -143,19 +157,24 @@
             ],
             "aixy.uniapp": [
                 {
+                    "group": "navigation@1",
+                    "command": "aixy_template.createPage"
+                },
+                {
                     "group": "navigation@2",
                     "command": "aixy_template.createSubcontractPage"
                 },
                 {
-                    "group": "navigation@",
+                    "group": "navigation@3",
                     "command": "aixy_template.createComponent"
-                },
-                {
-                    "group": "navigation@1",
-                    "command": "aixy_template.createPage"
                 }
             ],
-            "aixy.file.create": []
+            "aixy.file.create": [
+                {
+                    "group": "navigation",
+                    "command": "aixy.test"
+                }
+            ]
         }
     },
     "devDependencies": {
@@ -169,6 +188,7 @@
         "webpack-cli": "^5.1.4"
     },
     "dependencies": {
+        "axios": "^1.7.7",
         "comment-json": "^4.2.5",
         "ejs": "^3.1.10",
         "fs-extra": "^11.2.0"

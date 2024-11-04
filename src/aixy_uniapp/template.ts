@@ -1,10 +1,10 @@
 import * as ejs from 'ejs'
-import cv2 from './templates/component-vue2'
-import cv3 from './templates/component-vue3'
-import pv2 from './templates/page-vue2'
-import pv3 from './templates/page-vue3'
-import pv2c from './templates/page-composition'
-import cv2c from './templates/component-composition'
+import cv2 from '@/aixy_uniapp/templates/component-vue2'
+import cv3 from '@/aixy_uniapp/templates/component-vue3'
+import pv2 from '@/aixy_uniapp/templates/page-vue2'
+import pv3 from '@/aixy_uniapp/templates/page-vue3'
+import pv2c from '@/aixy_uniapp/templates/page-composition'
+import cv2c from '@/aixy_uniapp/templates/component-composition'
 
 // 定义所有模板的映射
 const ALL_TEMPLATES = {

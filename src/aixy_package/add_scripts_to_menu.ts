@@ -1,7 +1,7 @@
 import * as vscode from 'vscode'; // 导入 VS Code 扩展 API
 import * as fs from 'fs'; // 导入 Node.js 的文件系统模块，用于与文件系统进行交互
 
-import { CreateCommandOptions, logger } from '@/utils/a_VSCode'; // 导入自定义的 CreateCommandOptions 类型
+import { CreateCommandOptions, logger } from '@/utils/aVSCode'; // 导入自定义的 CreateCommandOptions 类型
 
 /**
  * 将 package.json 中的 scripts 动态添加到 VS Code 的右键上下文菜单中
@@ -19,6 +19,42 @@ export async function package_run_scripts(options: CreateCommandOptions, uri: vs
         const packageJson = JSON.parse(fs.readFileSync(uri.fsPath, 'utf-8'));
         const scripts = packageJson.scripts || {}; // 获取 scripts 对象，如果不存在则使用空对象
 
+        // 获取 scripts 对象的键和值并显示选择菜单
+        const scriptItems = Object.keys(scripts).map(key => ({
+            label: key,
+            description: scripts[key]
+        }));
+
+        if (scriptItems.length === 0) {
+            logger('warning', `脚本不存在`);
+            return;
+        }
+
+        const selectedScript = await vscode.window.showQuickPick(scriptItems, {
+            placeHolder: '选择要运行的脚本'
+        });
+
+        if (selectedScript) {
+            // 运行选中的脚本
+            const terminal = vscode.window.createTerminal('Run Script');
+            terminal.sendText(`npm run ${selectedScript.label}`);
+            terminal.show();
+        } else {
+            logger('warning', `未选择任何脚本`);
+        }
+    }
+}
+
+export async function package_run_scripts_firstScript(options: CreateCommandOptions, uri: vscode.Uri) {
+
+    logger('warning', `${options.command} 执行!`)
+
+    // 检查 package.json 文件是否存在
+    if (fs.existsSync(uri.fsPath)) {
+        // 读取并解析 package.json 文件
+        const packageJson = JSON.parse(fs.readFileSync(uri.fsPath, 'utf-8'));
+        const scripts = packageJson.scripts || {}; // 获取 scripts 对象，如果不存在则使用空对象
+
         // 获取 scripts 对象的键并显示选择菜单
         const scriptKeys = Object.keys(scripts);
 
@@ -26,18 +62,8 @@ export async function package_run_scripts(options: CreateCommandOptions, uri: vs
             logger('warning', `脚本不存在`);
             return;
         }
-
-        const selectedScript = await vscode.window.showQuickPick(scriptKeys, {
-            placeHolder: '选择要运行的脚本'
-        });
-
-        if (selectedScript) {
-            // 运行选中的脚本
-            const terminal = vscode.window.createTerminal('Run Script');
-            terminal.sendText(`npm run ${selectedScript}`);
-            terminal.show();
-        } else {
-            logger('warning', `未选择任何脚本`)
-        }
+        const terminal = vscode.window.createTerminal('Run Script');
+        terminal.sendText(`npm run ${scriptKeys[0]}`);
+        terminal.show();
     }
 }

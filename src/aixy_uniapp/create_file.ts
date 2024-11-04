@@ -1,6 +1,6 @@
 import * as vscode from 'vscode'
-import { generate } from '@/generate'
-import { getConfiguration, logger, CreateCommandOptions } from '@/utils/a_VSCode'
+import { generate } from '@/aixy_uniapp/generate'
+import { getConfiguration, logger, CreateCommandOptions } from '@/utils/aVSCode'
 
 
 // 创建命令的函数

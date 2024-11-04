@@ -2,7 +2,7 @@ import path from 'path'
 import * as fs from 'fs-extra'
 import * as JSONC from 'comment-json'
 import { createViewTemplate } from './template'
-import { slash, upwardSearchFile, isDirectory } from '@/utils/a_Path'
+import { slash, upwardSearchFile, isDirectory } from '@/utils/aPath'
 
 // 定义生成选项的接口
 export interface GenerateOptions {
