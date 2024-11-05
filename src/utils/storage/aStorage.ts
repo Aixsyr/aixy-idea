@@ -113,7 +113,7 @@ class RamCache {
 }
 
 const ramCache = new RamCache();
-const sessionCache = new aCache(sessionStorage, 'sessionStorage');
-const localCache = new aCache(localStorage, 'localStorage');
+const sessionCache = typeof sessionStorage !== 'undefined' ? new aCache(sessionStorage, 'sessionStorage') : new RamCache();
+const localCache = typeof localStorage !== 'undefined' ? new aCache(localStorage, 'localStorage') : new RamCache();
 
 export { aCache, RamCache, ramCache, sessionCache, localCache };

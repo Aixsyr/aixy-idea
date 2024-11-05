@@ -14,16 +14,6 @@ export function slash(path: string): string {
     return path.replace(/\\/g, '/');
 }
 
-// 判断路径是否为目录
-export function isDirectory(path: string) {
-    try {
-        return fs.statSync(path).isDirectory()
-    }
-    catch (error) {
-        return false
-    }
-}
-
 // 判断文件是否可访问
 export function isFileAccess(path: string) {
     return new Promise((resolve) => {

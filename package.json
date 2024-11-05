@@ -89,8 +89,12 @@
         ],
         "commands": [
             {
-                "command": "aixy.test",
-                "title": "aixy 测试"
+                "command": "aixy.test.run",
+                "title": "aixy 测试启动"
+            },
+            {
+                "command": "aixy.file.add.gitignore",
+                "title": "添加 .gitignore 文件"
             },
             {
                 "command": "aixy.package.runScript",
@@ -124,7 +128,7 @@
             },
             {
                 "id": "aixy.file.create",
-                "label": "创建单文件"
+                "label": "创建文件"
             }
         ],
         "menus": {
@@ -172,7 +176,11 @@
             "aixy.file.create": [
                 {
                     "group": "navigation",
-                    "command": "aixy.test"
+                    "command": "aixy.test.run"
+                },
+                {
+                    "group": "navigation@6",
+                    "command": "aixy.file.add.gitignore"
                 }
             ]
         }

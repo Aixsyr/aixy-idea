@@ -1,14 +1,13 @@
+import { AxiosResponse } from 'axios'
 import axios from 'axios'
 import { RepeatSubmit, paramsSerializer, setHeadersToken } from './aAxiosRequest'
 
 axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8'
 
-const baseURL = process.env.BASE_API;
-if (!baseURL) {
-  throw new Error('BASE_API 环境变量未定义');
-}
+const baseURL = "http://127.0.0.1";
+
 const _aAxios = axios.create({
-  baseURL: process.env.BASE_API,
+  baseURL: baseURL,
   timeout: 12000
 })
 
@@ -55,13 +54,13 @@ _aAxios.interceptors.response.use(res => {
 
 const aAxios = {
   // 发起GET请求
-  get: (url: string, arg?: any) => _aAxios({ url, method: 'get', params: arg }),
+  get: (url: string, arg?: any): Promise<any> => _aAxios({ url, method: 'get', params: arg }),
   // 发起带参数的GET请求
-  getRestful: (url: string, arg: string) => _aAxios({ url: `${url}/${arg}`, method: 'get' }),
+  getRestful: (url: string, arg: string): Promise<any> => _aAxios({ url: `${url}/${arg}`, method: 'get' }),
   // 发起POST请求
-  post: (url: string, arg?: any) => _aAxios({ url, method: 'post', data: arg }),
+  post: (url: string, arg?: any): Promise<any> => _aAxios({ url, method: 'post', data: arg }),
   // 发起表单数据的POST请求
-  postFormData: (url: string, arg: any) => {
+  postFormData: (url: string, arg: any): Promise<any> => {
     return _aAxios({
       url,
       method: 'post',
@@ -72,11 +71,11 @@ const aAxios = {
     });
   },
   // 发起PUT请求
-  put: (url: string, arg?: any) => _aAxios({ url, method: 'put', data: arg }),
+  put: (url: string, arg?: any): Promise<any> => _aAxios({ url, method: 'put', data: arg }),
   // 发起DELETE请求
-  delete: (url: string, arg?: any) => _aAxios({ url, method: 'delete', params: arg }),
+  delete: (url: string, arg?: any): Promise<any> => _aAxios({ url, method: 'delete', params: arg }),
   // 发起带参数的DELETE请求
-  deleteRestful: (url: string, arg: string) => _aAxios({ url: `${url}/${arg}`, method: 'delete' }),
+  deleteRestful: (url: string, arg: string): Promise<any> => _aAxios({ url: `${url}/${arg}`, method: 'delete' }),
 };
 
-export default aAxios
+export { aAxios }

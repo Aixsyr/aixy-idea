@@ -2,7 +2,7 @@ import path from 'path'
 import * as fs from 'fs-extra'
 import * as JSONC from 'comment-json'
 import { createViewTemplate } from './template'
-import { slash, upwardSearchFile, isDirectory } from '@/utils/aPath'
+import { slash, upwardSearchFile } from '@/utils/aPath'
 
 // 定义生成选项的接口
 export interface GenerateOptions {
@@ -43,11 +43,11 @@ export async function generate(options: GenerateOptions): Promise<GenerateResult
   const directoryPath = path.resolve(options.path, names.view)
 
   // #region 判断路径是否存在 / 符合创建环境
-  if (!isDirectory(options.path))
+  if (!fs.statSync(options.path).isDirectory())
     return { status: 'error', message: '创建错误, 该路径不是文件夹' }
 
   if (options.directory) {
-    if (!isDirectory(directoryPath))
+    if (!fs.statSync(directoryPath).isDirectory())
       fs.ensureDir(directoryPath)
     else return { status: 'error', message: '创建错误, 该文件夹已存在!' }
   }
