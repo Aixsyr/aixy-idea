@@ -1,10 +1,10 @@
-import { AxiosResponse } from 'axios'
 import axios from 'axios'
 import { RepeatSubmit, paramsSerializer, setHeadersToken } from './aAxiosRequest'
+import { base } from './aAxiosResponse'
 
 axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8'
 
-const baseURL = "http://127.0.0.1";
+const baseURL = process.env.BASE_API || "http://127.0.0.1";
 
 const _aAxios = axios.create({
   baseURL: baseURL,
@@ -16,7 +16,7 @@ _aAxios.interceptors.request.use(config => {
   //重复提交拦截
   RepeatSubmit(config, ['post', 'put', 'delete'], 100)
   //设置token
-  // setHeadersToken(config)
+  setHeadersToken(config)
   //参数转化
   paramsSerializer(config)
 
@@ -28,6 +28,7 @@ _aAxios.interceptors.request.use(config => {
 
 // 响应拦截器
 _aAxios.interceptors.response.use(res => {
+  base(res)
   // 二进制数据则直接返回
   if (res.request.responseType === 'blob' || res.request.responseType === 'arraybuffer') {
     return res.data

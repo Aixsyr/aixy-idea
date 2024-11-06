@@ -9,6 +9,8 @@ export function logger(type: string, message = '') {
       return vscode.window.showWarningMessage(`Warning: ${message}`)
     case 'error':
       return vscode.window.showErrorMessage(`Failed: ${message}`)
+    default:
+      return vscode.window.showInformationMessage(`Failed: logger 使用错误\n${message}`)
   }
 }
 

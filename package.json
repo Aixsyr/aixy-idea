@@ -2,7 +2,7 @@
     "name": "aixy-idea",
     "displayName": "Aixy idea",
     "description": "Aixy 的想法",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "publisher": "Aixy",
     "engines": {
         "vscode": "^1.47.0"
