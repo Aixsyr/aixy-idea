@@ -4,8 +4,13 @@ import * as fs from 'fs-extra'; // 导入 Node.js 的文件系统模块，用于
 import { CreateCommandOptions, logger } from '@/utils/aVSCode'; // 导入自定义的 CreateCommandOptions 类型
 
 // 运行选中的脚本
-function run_scripts(Script: string) {
-    const terminal = vscode.window.createTerminal('Run Script');
+function run_scripts(Script: string, terminalName: string = Script) {
+    let terminal = vscode.window.terminals.find(t => t.name === terminalName);
+    if (!terminal) {
+        terminal = vscode.window.createTerminal(terminalName);
+    } else {
+        terminal.sendText('\x03'); // 发送 Ctrl+C 停止当前命令
+    }
     terminal.sendText(`npm run ${Script}`);
     terminal.show();
 }
@@ -45,9 +50,8 @@ export async function package_run_scripts(options: CreateCommandOptions, uri: vs
 
         if (selectedScript) {
             // 运行选中的脚本
-            run_scripts(selectedScript.label);
+            run_scripts(selectedScript.label, selectedScript.label);
         } else {
-            logger('warning', `未选择任何脚本`);
         }
     }
 }
@@ -60,6 +64,6 @@ export async function package_run_scripts_firstScript(options: CreateCommandOpti
             logger('warning', `脚本不存在`);
             return;
         }
-        run_scripts(scriptItems[0].label);
+        run_scripts(scriptItems[0].label, scriptItems[0].label);
     }
 }

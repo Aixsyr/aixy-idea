@@ -7,7 +7,7 @@ import { package_run_scripts, package_run_scripts_firstScript } from '@/aixy_pac
 import { file_add_gitignore } from '@/aixy_file/add_gitignore'
 // 激活扩展程序时调用此方法
 export function activate(context: vscode.ExtensionContext) {
-  logger('success', `Aixy 启动`)
+  logger('info', `Aixy 启动`)
   // 创建命令的订阅列表
   const aixy_uniapp = [
     createCommand({

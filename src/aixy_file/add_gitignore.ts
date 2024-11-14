@@ -4,6 +4,7 @@ import { aAxios } from '@/utils/aAxios/aAxios'
 
 import * as fs from 'fs';
 import * as path from 'path';
+import { name } from 'ejs';
 
 interface NameListData {
     nameList: string[];
@@ -33,7 +34,6 @@ async function file_add_gitignore(options: CreateCommandOptions, uri: vscode.Uri
         );
 
         if (overwrite !== '是') {
-            logger('warning', '取消覆盖 .gitignore 文件');
             return;
         }
     }
@@ -41,8 +41,9 @@ async function file_add_gitignore(options: CreateCommandOptions, uri: vscode.Uri
     let { nameList, timestamp } = globalState.get<NameListData>(NAME_LIST_KEY) || { nameList: [], timestamp: 0 };
 
     if (!nameList.length || !timestamp || (Date.now() - timestamp > ONE_MONTH_IN_MS)) {
-        logger('success', '正在获取 .gitignore 模板列表');
         nameList = await aAxios.get('https://api.github.com/gitignore/templates');
+        logger('info', '获取 .gitignore 模板列表成功');
+        nameList.unshift('.gitignore');
         globalState.update(NAME_LIST_KEY, { nameList: nameList, timestamp: Date.now() });
     }
 
@@ -54,11 +55,15 @@ async function file_add_gitignore(options: CreateCommandOptions, uri: vscode.Uri
     );
 
     if (selectedName) {
-        const text: { [key: string]: string } = await aAxios.get('https://api.github.com/gitignore/templates/' + selectedName.label);
+        let text: { [key: string]: string };
+        if (selectedName.label === '.gitignore') {
+            text = { source: '' };
+        } else {
+            text = await aAxios.get('https://api.github.com/gitignore/templates/' + selectedName.label);
+        }
         fs.writeFileSync(gitignorePath, text.source, 'utf8');
-        logger('success', '.gitignore 文件已创建');
+        logger('info', '.gitignore 文件已创建');
     } else {
-        logger('warning', '未选择类型');
     }
 }
 

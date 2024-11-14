@@ -3,7 +3,7 @@ import * as vscode from 'vscode'
 // 日志记录函数，根据类型显示不同的消息
 export function logger(type: string, message = '') {
   switch (type) {
-    case 'success':
+    case 'info':
       return vscode.window.showInformationMessage(`Success: ${message}`)
     case 'warning':
       return vscode.window.showWarningMessage(`Warning: ${message}`)
