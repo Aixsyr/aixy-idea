@@ -1,204 +1,123 @@
 {
-    "name": "aixy-idea",
-    "displayName": "Aixy idea",
-    "description": "Aixy 的想法",
-    "version": "0.0.3",
-    "publisher": "Aixy",
-    "engines": {
-        "vscode": "^1.47.0"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/Aixsyr/aixy-idea.git"
-    },
-    "activationEvents": [
-        "onView:explorer"
-    ],
-    "icon": "public/icon.png",
-    "main": "out/extension.js",
-    "scripts": {
-        "vscode:prepublish": "webpack",
-        "vite build": "vite build",
-        "webpack build": "webpack",
-        "compile": "tsc -p ./"
-    },
-    "contributes": {
-        "configuration": [
-            {
-                "title": "aixy_template 配置项",
-                "properties": {
-                    "aixy_template.typescript": {
-                        "type": "boolean",
-                        "default": true,
-                        "description": "创建视图时是否选择 TypeScript 为默认语言"
-                    },
-                    "aixy_template.directory": {
-                        "type": "boolean",
-                        "default": false,
-                        "description": "创建视图时是否创建同名文件夹"
-                    },
-                    "aixy_template.name": {
-                        "type": [
-                            "string"
-                        ],
-                        "default": "index",
-                        "enum": [
-                            "index",
-                            "与文件夹同名"
-                        ],
-                        "description": "创建文件夹中生成的文件名"
-                    },
-                    "aixy_template.style": {
-                        "type": [
-                            "string"
-                        ],
-                        "default": "css",
-                        "enum": [
-                            "css",
-                            "scss",
-                            "less",
-                            "stylus",
-                            "sass"
-                        ],
-                        "description": "创建视图时 CSS 预处理器的类型"
-                    },
-                    "aixy_template.scoped": {
-                        "type": "boolean",
-                        "default": true,
-                        "description": "创建模版时，是否使用 <style scoped>"
-                    },
-                    "aixy_template.setup": {
-                        "type": "boolean",
-                        "default": true,
-                        "description": "创建 vue3 模版时，是否使用 <script setup>"
-                    },
-                    "aixy_template.template": {
-                        "type": [
-                            "string"
-                        ],
-                        "default": "vue3",
-                        "enum": [
-                            "vue2",
-                            "vue3",
-                            "composition-api(vue2)"
-                        ],
-                        "description": "选择创建的模版"
-                    }
-                }
-            }
-        ],
-        "commands": [
-            {
-                "command": "aixy.test.run",
-                "title": "aixy 测试启动"
-            },
-            {
-                "command": "aixy.file.add.gitignore",
-                "title": "添加 .gitignore 文件"
-            },
-            {
-                "command": "aixy.package.runScript",
-                "title": "运行任务"
-            },
-            {
-                "command": "aixy.package.runScript.firstScript",
-                "title": "运行首个任务"
-            },
-            {
-                "command": "aixy_template.createPage",
-                "title": "新建uni-app页面"
-            },
-            {
-                "command": "aixy_template.createSubcontractPage",
-                "title": "新建uni-app页面(分包)"
-            },
-            {
-                "command": "aixy_template.createComponent",
-                "title": "新建uni-app组件"
-            }
-        ],
-        "submenus": [
-            {
-                "id": "aixy.submenu",
-                "label": "aixy"
-            },
-            {
-                "id": "aixy.uniapp",
-                "label": "uni-app"
-            },
-            {
-                "id": "aixy.file.create",
-                "label": "创建文件"
-            }
-        ],
-        "menus": {
-            "explorer/context": [
-                {
-                    "group": "navigation@1",
-                    "command": "aixy.package.runScript.firstScript",
-                    "when": "resourceFilename == package.json"
-                },
-                {
-                    "group": "navigation@2",
-                    "command": "aixy.package.runScript",
-                    "when": "resourceFilename == package.json"
-                },
-                {
-                    "group": "navigation@3",
-                    "submenu": "aixy.uniapp",
-                    "when": "resourceFilename == pages"
-                },
-                {
-                    "group": "navigation@4",
-                    "submenu": "aixy.submenu"
-                }
+  "name": "aixy-idea-vscode",
+  "displayName": "aixy idea vscode",
+  "description": "Aixy 的想法",
+  "version": "0.0.4",
+  "publisher": "Aixy",
+  "engines": {
+    "vscode": "^1.96.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Aixsyr/aixy-idea.git"
+  },
+  "activationEvents": [
+    "onView:explorer"
+  ],
+  "icon": "public/icon.png",
+  "main": "out/extension.js",
+  "scripts": {
+    "vscode:prepublish": "pnpm run webpack",
+    "webpack": "webpack",
+    "compile": "tsc -p ./",
+    "package": "pnpm vsce package --no-dependencies"
+  },
+  "contributes": {
+    "configuration": [
+      {
+        "title": "aixy idea vscode",
+        "properties": {
+          "aixy_package.packageManager": {
+            "type": "string",
+            "default": "npm",
+            "enum": [
+              "npm",
+              "pnpm",
+              "yarn"
             ],
-            "aixy.submenu": [
-                {
-                    "group": "navigation@2",
-                    "submenu": "aixy.file.create"
-                }
-            ],
-            "aixy.uniapp": [
-                {
-                    "group": "navigation@1",
-                    "command": "aixy_template.createPage"
-                },
-                {
-                    "group": "navigation@2",
-                    "command": "aixy_template.createSubcontractPage"
-                },
-                {
-                    "group": "navigation@3",
-                    "command": "aixy_template.createComponent"
-                }
-            ],
-            "aixy.file.create": [
-                {
-                    "group": "navigation",
-                    "command": "aixy.test.run"
-                },
-                {
-                    "group": "navigation@6",
-                    "command": "aixy.file.add.gitignore"
-                }
-            ]
+            "description": "运行脚本的包管理器"
+          }
         }
-    },
-    "devDependencies": {
-        "@types/ejs": "^3.1.5",
-        "@types/fs-extra": "^11.0.4",
-        "@types/node": "^22.8.5",
-        "ts-loader": "^9.5.1",
-        "typescript": "^5.6.3",
-        "vscode": "^1.1.37",
-        "webpack": "^5.96.1",
-        "webpack-cli": "^5.1.4"
-    },
-    "dependencies": {
-        "axios": "^1.7.7",
-        "comment-json": "^4.2.5",
-        "ejs": "^3.1.10",
-        "fs-extra": "^11.2.0"
+      }
+    ],
+    "commands": [
+      {
+        "command": "aixy.test.run",
+        "title": "aixy 测试启动"
+      },
+      {
+        "command": "aixy.file.add.gitignore",
+        "title": "添加 .gitignore 文件"
+      },
+      {
+        "command": "aixy.package.runScript.firstScript",
+        "title": "运行首个任务"
+      },
+      {
+        "command": "aixy.package.runScript",
+        "title": "运行任务"
+      }
+    ],
+    "submenus": [
+      {
+        "id": "aixy.submenu",
+        "label": "aixy"
+      },
+      {
+        "id": "aixy.file.create",
+        "label": "创建文件"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "group": "navigation@1",
+          "command": "aixy.package.runScript.firstScript",
+          "when": "resourceFilename == package.json"
+        },
+        {
+          "group": "navigation@2",
+          "command": "aixy.package.runScript",
+          "when": "resourceFilename == package.json"
+        },
+        {
+          "group": "navigation@4",
+          "submenu": "aixy.submenu"
+        }
+      ],
+      "aixy.submenu": [
+        {
+          "group": "navigation@2",
+          "submenu": "aixy.file.create"
+        }
+      ],
+      "aixy.file.create": [
+        {
+          "group": "navigation",
+          "command": "aixy.test.run"
+        },
+        {
+          "group": "navigation@6",
+          "command": "aixy.file.add.gitignore"
+        }
+      ]
     }
+  },
+  "devDependencies": {
+    "@types/ejs": "^3.1.5",
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^22.8.5",
+    "@types/vscode": "^1.96.0",
+    "@vscode/test-electron": "^2.4.1",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.6.3",
+    "webpack": "^5.96.1",
+    "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "axios": "^1.7.7",
+    "comment-json": "^4.2.5",
+    "ejs": "^3.1.10",
+    "fs-extra": "^11.2.0"
+  }
 }

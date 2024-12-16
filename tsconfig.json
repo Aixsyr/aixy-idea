@@ -1,24 +1,18 @@
 {
-    "compilerOptions": {
-        "module": "CommonJS",
-        "target": "es6",
-        "outDir": "out",
-        "rootDir": "src",
-        "sourceMap": true,
-        "strict": true,
-        "esModuleInterop": true,
-        "baseUrl": ".",
-        "paths": {
-            "@/*": [
-                "src/*"
-            ]
-        }
+  "compilerOptions": {
+    "module": "CommonJS",
+    "target": "es6",
+    "outDir": "out",
+    "rootDir": "src",
+    "sourceMap": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
     },
-    "include": [
-        "src/**/*.ts"
-    ],
-    "exclude": [
-        "node_modules",
-        ".vscode-test",
-    ]
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", ".vscode-test"]
 }

@@ -3,7 +3,6 @@ import * as fs from 'fs-extra'
 import * as JSONC from 'comment-json'
 import { createViewTemplate } from './template'
 import { slash, upwardSearchFile } from '@/utils/aPath'
-import { logger } from '@/utils/aVSCode'
 
 // 定义生成选项的接口
 export interface GenerateOptions {
@@ -74,14 +73,14 @@ export async function generate(options: GenerateOptions): Promise<GenerateResult
 
   // 组件则跳过
   if (options.component)
-    return { status: 'success', message: '创建组件成功!' }
+    return { status: 'info', message: '创建组件成功!' }
 
   // 写入 pages.json
   const status = await writePagesJson(options)
   if (status)
     return status
 
-  return { status: 'success', message: '创建页面成功!' }
+  return { status: 'info', message: '创建页面成功!' }
 }
 
 // 写入 pages.json 的函数
