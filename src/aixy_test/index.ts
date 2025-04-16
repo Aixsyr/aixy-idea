@@ -1,7 +1,7 @@
 import type * as vscode from "vscode";
 import { createCommand } from "@/utils/aVSCode";
 
-import { aixy_test_fun } from "@/aixy_test/aTest";
+// import { aixy_test_fun } from "@/aixy_test/aTest";
 
 // 激活扩展程序时调用此方法
 export function aixy_test_activate(
@@ -12,7 +12,6 @@ export function aixy_test_activate(
       name: "aixy 测试启动",
       context: context,
       command: "aixy.test.run",
-      hookfun: aixy_test_fun,
     }),
   ];
 }
